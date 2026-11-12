@@ -38,7 +38,7 @@
         </div>
     </header>
 
-    <!-- Main Content -->
+    <!-- Main Content Section -->
     <main class="max-w-md mx-auto p-4 space-y-4">
         
         <!-- Live Alert Banner -->
@@ -46,14 +46,14 @@
             <i class="fa-solid fa-fire text-2xl text-amber-400 animate-bounce"></i>
             <div>
                 <h2 class="font-bold text-sm text-white">Urgent Hiring Active!</h2>
-                <p class="text-xs text-amber-200">Fill your details below for direct placement support.</p>
+                <p class="text-xs text-amber-200">Select your preferred job profile and apply now.</p>
             </div>
         </div>
 
-        <!-- Candidate View: Single Clean Form (Shown to everyone by default) -->
-        <div id="candidateView" class="bg-slate-800/90 border border-slate-700/80 rounded-2xl p-5 shadow-xl">
+        <!-- Registration Form with All Categories -->
+        <div class="bg-slate-800/90 border border-slate-700/80 rounded-2xl p-5 shadow-xl">
             <h3 class="text-base font-bold text-white mb-4 flex items-center gap-2">
-                <i class="fa-solid fa-file-lines text-blue-400"></i> Candidate Registration Form
+                <i class="fa-solid fa-file-lines text-blue-400"></i> Job Application Form
             </h3>
 
             <form id="candidateForm" class="space-y-4" onsubmit="submitForm(event)">
@@ -68,8 +68,12 @@
                 </div>
 
                 <div>
-                    <label class="block text-xs font-semibold text-slate-300 mb-1">Job Profile</label>
-                    <input type="text" readonly value="Office Staff & Supervision (Highest Pay)" class="w-full bg-slate-900/80 border border-slate-700 rounded-xl px-3 py-2.5 text-sm text-blue-400 font-semibold cursor-not-allowed">
+                    <label class="block text-xs font-semibold text-slate-300 mb-1">Select Job Category (जॉब चुनें)</label>
+                    <select id="candCategory" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-blue-500">
+                        <option value="Office Staff & Supervision">1. Office Staff & Supervision</option>
+                        <option value="Computer Operator">2. Computer Operator (Excel/Data)</option>
+                        <option value="Factory & Warehouse Worker">3. Factory & Warehouse Worker</option>
+                    </select>
                 </div>
 
                 <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-4 rounded-xl shadow-lg transition transform active:scale-95 text-sm tracking-wide">
@@ -78,38 +82,11 @@
             </form>
         </div>
 
-        <!-- Admin Dashboard View (Visible ONLY when unlocked with PIN 3051 on your phone) -->
-        <div id="adminView" class="hidden space-y-4">
-            <div class="bg-blue-950/40 border border-blue-500/30 rounded-2xl p-4 flex justify-between items-center">
-                <div>
-                    <h3 class="font-bold text-white text-sm">Admin Dashboard (Unlocked)</h3>
-                    <p class="text-xs text-blue-300">Only visible on your device with PIN 3051.</p>
-                </div>
-                <button onclick="lockAdmin()" class="bg-red-600/80 hover:bg-red-600 text-white text-xs font-bold px-3 py-1.5 rounded-lg">Lock</button>
-            </div>
-
-            <!-- All 3 Options Visible Only in Your Admin Panel -->
-            <div class="bg-slate-800/90 border border-slate-700 rounded-2xl p-4 space-y-3">
-                <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Manage All 3 Categories</h4>
-                <div class="p-3 bg-slate-900 rounded-xl border border-slate-700 text-sm font-semibold text-white flex justify-between items-center">
-                    <span>1. Office Staff & Supervision</span>
-                    <span class="text-xs bg-blue-500/20 text-blue-400 px-2 py-1 rounded">Active</span>
-                </div>
-                <div class="p-3 bg-slate-900 rounded-xl border border-slate-700 text-sm font-semibold text-white flex justify-between items-center">
-                    <span>2. Computer Operator</span>
-                    <span class="text-xs bg-purple-500/20 text-purple-400 px-2 py-1 rounded">Active</span>
-                </div>
-                <div class="p-3 bg-slate-900 rounded-xl border border-slate-700 text-sm font-semibold text-white flex justify-between items-center">
-                    <span>3. Factory & Warehouse Worker</span>
-                    <span class="text-xs bg-emerald-500/20 text-emerald-400 px-2 py-1 rounded">Active</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Admin Login Button Footer -->
-        <div class="text-center pt-2">
-            <button id="adminToggleBtn" onclick="checkAdminAccess()" class="text-xs text-slate-500 hover:text-slate-300 transition underline">
-                Admin Panel Login (PIN: 3051)
+        <!-- Admin Access / PIN Section -->
+        <div class="bg-slate-800/50 border border-slate-700/50 rounded-2xl p-4 text-center space-y-2">
+            <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Admin Controls</h4>
+            <button onclick="verifyAdmin()" class="bg-slate-700 hover:bg-slate-600 text-slate-200 text-xs font-semibold py-2 px-4 rounded-xl transition border border-slate-600">
+                <i class="fa-solid fa-lock mr-1"></i> Admin Login (PIN: 313051)
             </button>
         </div>
 
@@ -120,20 +97,13 @@
     </main>
 
     <script>
-        const ADMIN_PIN = "3051";
-
-        // Check if admin was already unlocked on this specific device/phone
-        window.onload = function() {
-            if (localStorage.getItem("zubairAdminUnlocked") === "true") {
-                unlockAdminUI();
-            }
-        };
+        const ADMIN_PIN = "313051";
 
         function submitForm(e) {
             e.preventDefault();
             const name = document.getElementById('candName').value;
             const phone = document.getElementById('candPhone').value;
-            const category = "Office Staff & Supervision";
+            const category = document.getElementById('candCategory').value;
 
             const whatsappUrl = `https://wa.me/917030305124?text=New%20Job%20Application:%0AName:%20${encodeURIComponent(name)}%0APhone:%20${encodeURIComponent(phone)}%0ACategory:%20${encodeURIComponent(category)}`;
             
@@ -141,28 +111,13 @@
             window.location.href = whatsappUrl;
         }
 
-        function checkAdminAccess() {
-            const enteredPin = prompt("Enter Admin PIN (3051):");
-            if (enteredPin === ADMIN_PIN) {
-                localStorage.setItem("zubairAdminUnlocked", "true");
-                unlockAdminUI();
-                alert("Admin Access Granted on this device!");
-            } else if (enteredPin !== null) {
+        function verifyAdmin() {
+            const pin = prompt("Enter Admin PIN:");
+            if (pin === ADMIN_PIN) {
+                alert("Admin Access Granted! Sabhi options active hain.");
+            } else if (pin !== null) {
                 alert("Galat PIN hai!");
             }
-        }
-
-        function unlockAdminUI() {
-            document.getElementById('adminView').classList.remove('hidden');
-            document.getElementById('candidateView').classList.add('hidden');
-            document.getElementById('adminToggleBtn').innerText = "Switch to Candidate View";
-        }
-
-        function lockAdmin() {
-            localStorage.removeItem("zubairAdminUnlocked");
-            document.getElementById('adminView').classList.add('hidden');
-            document.getElementById('candidateView').classList.remove('hidden');
-            document.getElementById('adminToggleBtn').innerText = "Admin Panel Login (PIN: 3051)";
         }
     </script>
 

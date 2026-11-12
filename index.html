@@ -1,125 +1,729 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zubair Pathan - Job Consultant & Placement Support</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BLINKIT AD-HOC MANPOWER | Employee ID & Database</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', 'Noto Sans Devanagari', sans-serif;
+      background-color: #f3f4f6;
+      color: #111827;
+    }
+    .blinkit-yellow { background-color: #F8CB46; }
+    .blinkit-green { background-color: #0C831F; }
+    .blinkit-green-text { color: #0C831F; }
+    
+    @media print {
+      body * { visibility: hidden; }
+      #printable-id-card, #printable-id-card * { visibility: visible; }
+      #printable-id-card {
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        box-shadow: none !important;
+        border: 2px solid #000 !important;
+      }
+    }
+  </style>
 </head>
-<body class="bg-slate-900 text-slate-100 min-h-screen font-sans antialiased">
+<body class="min-h-screen flex flex-col">
 
-    <!-- Header / Profile Section -->
-    <header class="bg-gradient-to-r from-blue-900 via-slate-900 to-indigo-950 border-b border-slate-800 shadow-xl py-8 px-4 text-center relative overflow-hidden">
-        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:16px_16px]"></div>
-        
-        <div class="relative z-10 max-w-md mx-auto flex flex-col items-center">
-            <!-- Profile Photo -->
-            <div class="relative mb-4">
-                <div class="absolute -inset-1 rounded-full bg-gradient-to-r from-blue-500 to-indigo-500 blur opacity-75 animate-pulse"></div>
-                <img src="zubair.png" alt="Zubair Pathan" class="relative w-32 h-32 object-cover rounded-full border-4 border-slate-900 shadow-2xl">
-            </div>
-
-            <h1 class="text-2xl font-black tracking-wide text-white flex items-center gap-2">
-                Zubair Pathan <i class="fa-solid fa-circle-check text-blue-400 text-lg"></i>
-            </h1>
-            <p class="text-blue-400 font-semibold text-sm mt-1 uppercase tracking-widest">Senior Job Consultant & Placement Expert</p>
-            <p class="text-slate-400 text-xs mt-2 max-w-xs">Trusted Manpower Supplier & Career Guide. Connecting verified candidates with top companies.</p>
-
-            <!-- Quick Action Buttons -->
-            <div class="flex gap-3 mt-5 w-full justify-center">
-                <a href="https://wa.me/917030305124?text=Hello%20Zubair%20Sir,%20I%20am%20interested%20in%20job%20vacancies." target="_blank" class="flex-1 max-w-[140px] bg-green-600 hover:bg-green-500 text-white font-bold py-2.5 px-4 rounded-xl shadow-lg transition transform active:scale-95 flex items-center justify-center gap-2 text-sm">
-                    <i class="fa-brands fa-whatsapp text-lg"></i><span>WhatsApp</span>
-                </a>
-                <a href="tel:7030305124" class="flex-1 max-w-[140px] bg-blue-600 hover:bg-blue-500 text-white font-bold py-2.5 px-4 rounded-xl shadow-lg transition transform active:scale-95 flex items-center justify-center gap-2 text-sm">
-                    <i class="fa-solid fa-phone"></i> Call Now
-                </a>
-            </div>
+  <!-- TOP NAVIGATION BAR -->
+  <header class="blinkit-yellow border-b border-yellow-400 shadow-sm sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-6 py-3 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="bg-black text-white font-extrabold text-2xl px-3.5 py-1.5 rounded-xl tracking-tight">
+          blink<span class="text-[#F8CB46]">it</span>
         </div>
-    </header>
+        <div>
+          <h1 class="font-extrabold text-lg leading-tight text-gray-900">AD-HOC MANPOWER</h1>
+          <p class="text-xs font-semibold text-gray-800">Employee Registration & ID Management System</p>
+        </div>
+      </div>
 
-    <!-- Main Content Section -->
-    <main class="max-w-md mx-auto p-4 space-y-4">
-        
-        <!-- Live Alert Banner -->
-        <div class="bg-gradient-to-r from-amber-500/20 to-orange-500/20 border border-amber-500/30 rounded-2xl p-4 flex items-center gap-3 text-amber-300 shadow-lg">
-            <i class="fa-solid fa-fire text-2xl text-amber-400 animate-bounce"></i>
+      <nav class="flex items-center gap-2 bg-white/80 p-1.5 rounded-xl shadow-inner">
+        <button onclick="switchTab('register')" id="tab-register" class="px-4 py-2 rounded-lg text-sm font-bold transition bg-[#0C831F] text-white shadow">
+          1. नया रजिस्ट्रेशन (Form)
+        </button>
+        <button onclick="switchTab('database')" id="tab-database" class="px-4 py-2 rounded-lg text-sm font-bold transition text-gray-700 hover:bg-gray-200 flex items-center gap-1.5">
+          <span>🔒 2. डेटाबेस</span>
+          <span id="record-count-badge" class="bg-gray-200 text-gray-800 text-xs px-2 py-0.5 rounded-full">0</span>
+        </button>
+        <button onclick="switchTab('idstudio')" id="tab-idstudio" class="px-4 py-2 rounded-lg text-sm font-bold transition text-gray-700 hover:bg-gray-200">
+          🔒 3. ID कार्ड प्रिंट (Studio)
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="flex-1 max-w-7xl w-full mx-auto px-6 py-8">
+
+    <!-- TAB 1: REGISTRATION -->
+    <section id="view-register" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      
+      <div class="lg:col-span-7 bg-white rounded-2xl shadow-md border border-gray-200 p-6 md:p-8">
+        <div class="border-b border-gray-100 pb-4 mb-6 flex justify-between items-center">
+          <div>
+            <h2 class="text-xl font-extrabold text-gray-900">कर्मचारी रजिस्ट्रेशन फॉर्म</h2>
+            <p class="text-sm text-gray-500">सभी जानकारी भरें और दाईं तरफ से लाइव फोटो खींचें।</p>
+          </div>
+          <span class="bg-green-100 text-green-800 text-xs font-bold px-3 py-1 rounded-full">WhatsApp Ready</span>
+        </div>
+
+        <form id="employeeForm" onsubmit="handleFormSubmit(event)" class="space-y-5">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div>
-                <h2 class="font-bold text-sm text-white">Urgent Hiring Active!</h2>
-                <p class="text-xs text-amber-200">Select your preferred job profile and apply now.</p>
+              <label class="block text-sm font-bold text-gray-700 mb-1">पूरा नाम (Full Name) *</label>
+              <input type="text" id="empName" required placeholder="उदा. RAHUL KUMAR"
+                class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#0C831F] outline-none font-medium uppercase" />
             </div>
-        </div>
+            <div>
+              <label class="block text-sm font-bold text-gray-700 mb-1">मोबाइल नंबर (Mobile No) *</label>
+              <input type="tel" id="empMobile" required pattern="[0-9]{10}" maxlength="10" placeholder="10 अंकों का नंबर"
+                class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#0C831F] outline-none font-medium" />
+            </div>
+          </div>
 
-        <!-- Registration Form with All Categories -->
-        <div class="bg-slate-800/90 border border-slate-700/80 rounded-2xl p-5 shadow-xl">
-            <h3 class="text-base font-bold text-white mb-4 flex items-center gap-2">
-                <i class="fa-solid fa-file-lines text-blue-400"></i> Job Application Form
-            </h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div>
+              <label class="block text-sm font-bold text-gray-700 mb-1">उम्र (Age) *</label>
+              <input type="number" id="empAge" required min="18" max="60" placeholder="उदा. 24"
+                class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#0C831F] outline-none font-medium" />
+            </div>
+            <div>
+              <label class="block text-sm font-bold text-gray-700 mb-1">पद (Role) *</label>
+              <select id="empRole" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#0C831F] outline-none font-semibold bg-white">
+                <option value="PICKER">PICKER (पिकर)</option>
+                <option value="PACKER">PACKER (पैकर)</option>
+                <option value="LOADER / UNLOADER">LOADER / UNLOADER</option>
+                <option value="SUPERVISOR">SUPERVISOR (सुपरवाइजर)</option>
+                <option value="DELIVERY PARTNER">DELIVERY PARTNER</option>
+              </select>
+            </div>
+          </div>
 
-            <form id="candidateForm" class="space-y-4" onsubmit="submitForm(event)">
-                <div>
-                    <label class="block text-xs font-semibold text-slate-300 mb-1">Full Name (पूरा नाम)</label>
-                    <input type="text" id="candName" required placeholder="अपना पूरा नाम लिखें" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-blue-500">
-                </div>
+          <!-- Store Location -->
+          <div class="bg-yellow-50/70 p-4 rounded-xl border border-yellow-200">
+            <label class="block text-sm font-bold text-gray-800 mb-1">स्टोर / हब लोकेशन *</label>
+            <select id="empLocation" onchange="toggleCustomLocation()" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#0C831F] outline-none font-semibold bg-white">
+            </select>
+            <div id="locationMapHint" class="mt-2 text-xs text-blue-700 font-medium flex items-center gap-1">
+              <span>📍 Map Link:</span>
+              <a id="activeMapLink" href="https://maps.app.goo.gl/6X4vLpHT5CMiX8sj8?g_st=aw" target="_blank" class="underline hover:text-blue-900">
+                P3 - Nigoje DK Chowk, Chakan (Google Maps)
+              </a>
+            </div>
+            <input type="text" id="customLocationInput" placeholder="नया लोकेशन नाम लिखें..."
+              class="hidden mt-3 w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#0C831F] outline-none font-medium bg-white" />
+          </div>
 
-                <div>
-                    <label class="block text-xs font-semibold text-slate-300 mb-1">Mobile Number (WhatsApp No.)</label>
-                    <input type="tel" id="candPhone" required placeholder="10 अंकों का मोबाइल नंबर" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-blue-500">
-                </div>
+          <!-- Emergency Contact -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div>
+              <label class="block text-sm font-bold text-gray-700 mb-1">इमरजेंसी संपर्क नाम / रिश्ता *</label>
+              <input type="text" id="empEmergencyName" required placeholder="उदा. Pita / Bhai"
+                class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#0C831F] outline-none font-medium" />
+            </div>
+            <div>
+              <label class="block text-sm font-bold text-gray-700 mb-1">इमरजेंसी मोबाइल नंबर *</label>
+              <input type="tel" id="empEmergencyPhone" required pattern="[0-9]{10}" maxlength="10" placeholder="10 अंकों का नंबर"
+                class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#0C831F] outline-none font-medium" />
+            </div>
+          </div>
 
-                <div>
-                    <label class="block text-xs font-semibold text-slate-300 mb-1">Select Job Category (जॉब चुनें)</label>
-                    <select id="candCategory" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-blue-500">
-                        <option value="Office Staff & Supervision">1. Office Staff & Supervision</option>
-                        <option value="Computer Operator">2. Computer Operator (Excel/Data)</option>
-                        <option value="Factory & Warehouse Worker">3. Factory & Warehouse Worker</option>
-                    </select>
-                </div>
-
-                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-4 rounded-xl shadow-lg transition transform active:scale-95 text-sm tracking-wide">
-                    Submit Details <i class="fa-solid fa-paper-plane ml-1"></i>
-                </button>
-            </form>
-        </div>
-
-        <!-- Admin Access / PIN Section -->
-        <div class="bg-slate-800/50 border border-slate-700/50 rounded-2xl p-4 text-center space-y-2">
-            <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Admin Controls</h4>
-            <button onclick="verifyAdmin()" class="bg-slate-700 hover:bg-slate-600 text-slate-200 text-xs font-semibold py-2 px-4 rounded-xl transition border border-slate-600">
-                <i class="fa-solid fa-lock mr-1"></i> Admin Login (PIN: 313051)
+          <div class="pt-2">
+            <button type="submit" class="w-full blinkit-green hover:bg-green-800 text-white font-extrabold py-3.5 px-6 rounded-xl shadow-lg transition text-base flex items-center justify-center gap-2">
+              <span>✅ रिकॉर्ड सेव करें और ID जनरेट करें</span>
             </button>
+          </div>
+        </form>
+
+        <!-- Success & WhatsApp Group Join Box -->
+        <div id="submitSuccessBox" class="hidden mt-6 bg-green-50 border-2 border-green-500 rounded-xl p-5 text-center space-y-3">
+          <div class="text-3xl">🎉</div>
+          <h3 class="text-lg font-extrabold text-green-900">रजिस्ट्रेशन सफल रहा!</h3>
+          <p class="text-sm text-green-800">कर्मचारी ID: <span id="lastGeneratedId" class="font-mono font-bold bg-white px-2 py-0.5 rounded border border-green-300"></span> सेव हो गई है।</p>
+          
+          <div class="pt-2 border-t border-green-200">
+            <p class="text-xs font-bold text-gray-700 mb-2">अगला कदम: तुरंत WhatsApp ग्रुप से जुड़ें</p>
+            <a id="whatsappJoinBtn" href="https://chat.whatsapp.com/JBQ12OD4Vu5GGbqpe6RWFQ?s=cl&p=a&iam=2" target="_blank" class="inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20ba5a] text-white font-extrabold px-6 py-3 rounded-xl shadow-md text-sm transition w-full">
+              💬 WhatsApp ग्रुप ज्वाइन करें (Join Group)
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Camera Column -->
+      <div class="lg:col-span-5 bg-white rounded-2xl shadow-md border border-gray-200 p-6 md:p-8 flex flex-col items-center text-center">
+        <div class="w-full border-b border-gray-100 pb-3 mb-5 flex justify-between items-center">
+          <h3 class="font-extrabold text-gray-900">📸 लाइव फोटो (Live Camera Only)</h3>
+          <span class="text-xs font-bold bg-red-100 text-red-700 px-2.5 py-1 rounded-full">गैलरी बंद</span>
         </div>
 
-        <!-- Footer -->
-        <footer class="text-center py-2 text-xs text-slate-500">
-            <p>© 2026 Zubair Pathan Manpower Services. All rights reserved.</p>
-        </footer>
-    </main>
+        <div class="relative w-64 h-64 bg-gray-900 rounded-2xl overflow-hidden border-4 border-gray-200 shadow-inner flex items-center justify-center">
+          <video id="webcamVideo" autoplay playsinline class="hidden w-full h-full object-cover"></video>
+          <img id="capturedPhotoPreview" class="hidden w-full h-full object-cover" alt="Captured Photo" />
+          <div id="cameraPlaceholder" class="text-gray-400 p-4 flex flex-col items-center">
+            <span class="text-4xl mb-2">📷</span>
+            <span class="text-xs font-semibold">कैमरा बंद है<br>नीचे बटन दबाकर चालू करें</span>
+          </div>
+        </div>
+        <canvas id="photoCanvas" class="hidden"></canvas>
 
-    <script>
-        const ADMIN_PIN = "313051";
+        <div class="mt-5 flex flex-wrap justify-center gap-3 w-full">
+          <button type="button" id="btnStartCam" onclick="startCamera()" class="bg-gray-900 hover:bg-black text-white font-bold py-2.5 px-5 rounded-xl text-sm transition shadow">
+            🎥 कैमरा चालू करें
+          </button>
+          <button type="button" id="btnCapturePhoto" onclick="capturePhoto()" class="hidden blinkit-yellow hover:bg-yellow-400 text-gray-900 font-extrabold py-2.5 px-5 rounded-xl text-sm transition shadow">
+            📸 लाइव फोटो खींचें
+          </button>
+          <button type="button" id="btnRetakePhoto" onclick="startCamera()" class="hidden bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2.5 px-5 rounded-xl text-sm transition">
+            🔄 फिर से खींचें
+          </button>
+        </div>
+        <div id="cameraErrorMsg" class="hidden mt-3 text-xs text-red-600 font-semibold bg-red-50 p-2.5 rounded-lg border border-red-200"></div>
+      </div>
+    </section>
 
-        function submitForm(e) {
-            e.preventDefault();
-            const name = document.getElementById('candName').value;
-            const phone = document.getElementById('candPhone').value;
-            const category = document.getElementById('candCategory').value;
+    <!-- ADMIN PIN LOCK -->
+    <section id="view-pin-lock" class="hidden max-w-md mx-auto bg-white rounded-2xl shadow-lg border border-gray-200 p-8 text-center my-8">
+      <div class="w-16 h-16 bg-yellow-100 text-yellow-700 rounded-full flex items-center justify-center text-3xl mx-auto mb-4">🔐</div>
+      <h2 class="text-xl font-extrabold text-gray-900">Admin Access Only</h2>
+      <p class="text-sm text-gray-500 mt-1">डेटाबेस और ID स्टूडियो खोलने के लिए Admin PIN डालें (डिफ़ॉल्ट: 3051)</p>
+      <div class="mt-6">
+        <input type="password" id="adminPinInput" maxlength="6" placeholder="••••••" onkeyup="if(event.key==='Enter') verifyAdminPin()"
+          class="w-48 text-center text-2xl tracking-[0.5em] font-extrabold px-4 py-3 rounded-xl border-2 border-gray-300 focus:border-[#0C831F] outline-none" />
+      </div>
+      <p id="pinErrorText" class="hidden text-xs text-red-600 font-bold mt-2">❌ गलत PIN!</p>
+      <button onclick="verifyAdminPin()" class="mt-5 w-full blinkit-green hover:bg-green-800 text-white font-bold py-3 rounded-xl shadow transition">अनलॉक करें</button>
+    </section>
 
-            const whatsappUrl = `https://wa.me/917030305124?text=New%20Job%20Application:%0AName:%20${encodeURIComponent(name)}%0APhone:%20${encodeURIComponent(phone)}%0ACategory:%20${encodeURIComponent(category)}`;
-            
-            alert("Aapka form submit ho gaya hai! Ab WhatsApp par details bhej rahe hain.");
-            window.location.href = whatsappUrl;
+    <!-- TAB 2: DATABASE -->
+    <section id="view-database" class="hidden space-y-6">
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-5 flex flex-wrap items-center justify-between gap-4">
+        <div class="flex-1 min-w-[260px]">
+          <input type="text" id="searchInput" oninput="renderDatabase()" placeholder="🔍 नाम, मोबाइल या ID से खोजें..."
+            class="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#0C831F] outline-none text-sm font-medium" />
+        </div>
+        <div class="flex flex-wrap items-center gap-2.5">
+          <button onclick="toggleHubManager()" class="bg-yellow-100 hover:bg-yellow-200 text-yellow-900 font-bold px-4 py-2.5 rounded-xl text-xs transition">📍 Manage Hubs</button>
+          <button onclick="changeAdminPin()" class="bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold px-4 py-2.5 rounded-xl text-xs transition">🔑 PIN बदलें</button>
+          <button onclick="exportToCSV()" class="blinkit-green hover:bg-green-800 text-white font-bold px-4 py-2.5 rounded-xl text-xs shadow transition">📥 Excel / CSV डाउनलोड</button>
+          <button onclick="lockAdmin()" class="bg-red-50 hover:bg-red-100 text-red-700 font-bold px-3.5 py-2.5 rounded-xl text-xs transition">🔒 Lock</button>
+        </div>
+      </div>
+
+      <div id="hubManagerBox" class="hidden bg-white rounded-2xl shadow-sm border border-yellow-300 p-5">
+        <h3 class="font-extrabold text-sm text-gray-900 mb-3">📍 स्टोर / हब लोकेशन मैनेजर</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
+          <input type="text" id="newHubName" placeholder="हब नाम (उदा. P4)" class="px-3 py-2 rounded-lg border border-gray-300 text-sm" />
+          <input type="url" id="newHubMap" placeholder="Google Maps Link" class="px-3 py-2 rounded-lg border border-gray-300 text-sm" />
+          <button onclick="addNewHub()" class="bg-gray-900 text-white font-bold py-2 px-4 rounded-lg text-sm hover:bg-black">+ हब जोड़ें</button>
+        </div>
+        <div id="hubListContainer" class="flex flex-wrap gap-2"></div>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="bg-gray-50 border-b border-gray-200 text-xs font-extrabold text-gray-600 uppercase">
+                <th class="py-3.5 px-4">फोटो</th>
+                <th class="py-3.5 px-4">ID नंबर</th>
+                <th class="py-3.5 px-4">नाम</th>
+                <th class="py-3.5 px-4">मोबाइल</th>
+                <th class="py-3.5 px-4">उम्र / पद</th>
+                <th class="py-3.5 px-4">स्टोर / हब</th>
+                <th class="py-3.5 px-4">इमरजेंसी</th>
+                <th class="py-3.5 px-4 text-right">एक्शन</th>
+              </tr>
+            </thead>
+            <tbody id="databaseTableBody" class="divide-y divide-gray-100 text-sm"></tbody>
+          </table>
+        </div>
+        <div id="emptyDatabaseMsg" class="hidden py-12 text-center text-gray-400">
+          <p class="text-lg font-bold">अभी कोई रिकॉर्ड नहीं है</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: ID STUDIO -->
+    <section id="view-idstudio" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <div class="lg:col-span-5 bg-white rounded-2xl shadow-md border border-gray-200 p-6 space-y-5">
+        <div class="flex justify-between items-center border-b border-gray-100 pb-3">
+          <h2 class="text-lg font-extrabold text-gray-900">🪪 ID कार्ड स्टूडियो</h2>
+          <button onclick="lockAdmin()" class="text-xs font-bold text-red-600 bg-red-50 px-3 py-1 rounded-lg">🔒 Lock</button>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-gray-600 uppercase mb-1.5">कर्मचारी चुनें</label>
+          <select id="idCardSelect" onchange="renderSelectedIdCard()" class="w-full px-4 py-2.5 rounded-xl border border-gray-300 font-bold text-sm bg-white outline-none"></select>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-gray-600 uppercase mb-1.5">Manpower Partner / एजेंसी नाम</label>
+          <input type="text" id="partnerNameInput" value="AD-HOC MANPOWER PARTNER" oninput="renderSelectedIdCard()"
+            class="w-full px-4 py-2.5 rounded-xl border border-gray-300 font-semibold text-sm outline-none" />
+        </div>
+        <div class="pt-2 space-y-3">
+          <button onclick="downloadIdCardPng()" class="w-full blinkit-green hover:bg-green-800 text-white font-extrabold py-3 px-5 rounded-xl shadow transition text-sm">⬇️ ID कार्ड PNG डाउनलोड</button>
+          <button onclick="window.print()" class="w-full bg-gray-900 hover:bg-black text-white font-bold py-3 px-5 rounded-xl shadow transition text-sm">🖨️ प्रिंट / PDF सेव करें</button>
+        </div>
+      </div>
+
+      <div class="lg:col-span-7 flex flex-col items-center justify-center bg-gray-200/70 rounded-2xl p-8 border border-gray-300">
+        <div id="printable-id-card" class="w-[340px] bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-300 relative">
+          <div class="blinkit-yellow px-5 py-4 flex items-center justify-between border-b-2 border-[#0C831F]">
+            <div class="bg-black text-white font-extrabold text-xl px-2.5 py-1 rounded-lg">blink<span class="text-[#F8CB46]">it</span></div>
+            <div class="text-right">
+              <div id="cardPartnerHeader" class="text-[11px] font-extrabold text-gray-900 uppercase">AD-HOC MANPOWER</div>
+              <div class="text-[10px] font-bold text-gray-700">Authorized Field Staff</div>
+            </div>
+          </div>
+
+          <div class="pt-5 pb-3 px-5 flex flex-col items-center text-center">
+            <div class="w-28 h-28 rounded-2xl overflow-hidden border-4 border-[#0C831F] shadow-md bg-gray-100 flex items-center justify-center">
+              <img id="cardPhoto" src="" alt="Photo" class="w-full h-full object-cover" />
+            </div>
+            <span id="cardRoleBadge" class="mt-3 bg-[#0C831F] text-white text-[11px] font-extrabold px-3.5 py-0.5 rounded-full uppercase">PICKER</span>
+            <h3 id="cardName" class="mt-2 text-lg font-extrabold text-gray-900 uppercase">NAME</h3>
+            <div class="mt-1 bg-yellow-100 border border-yellow-300 px-3 py-0.5 rounded-md">
+              <span id="cardIdNumber" class="font-mono text-xs font-extrabold text-gray-900">ID: BLK-2026-0001</span>
+            </div>
+          </div>
+
+          <div class="px-5 py-3 bg-gray-50 border-t border-b border-gray-200 text-xs space-y-2">
+            <div class="flex justify-between"><span class="text-gray-500 font-semibold">Mobile:</span><span id="cardMobile" class="font-bold text-gray-900"></span></div>
+            <div class="flex justify-between"><span class="text-gray-500 font-semibold">Age:</span><span id="cardAge" class="font-bold text-gray-900"></span></div>
+            <div class="flex justify-between gap-2"><span class="text-gray-500 font-semibold shrink-0">Hub:</span><span id="cardLocation" class="font-bold text-gray-900 text-right"></span></div>
+            <div class="flex justify-between"><span class="text-gray-500 font-semibold">Emergency:</span><span id="cardEmergency" class="font-bold text-red-700"></span></div>
+            <div class="flex justify-between"><span class="text-gray-500 font-semibold">Issued:</span><span id="cardIssuedDate" class="font-bold text-gray-900"></span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    let ADMIN_PIN = localStorage.getItem('blinkit_admin_pin') || "3051";
+    let hubsList = JSON.parse(localStorage.getItem('blinkit_hubs') || JSON.stringify([
+      { name: "P3 - Nigoje DK Chowk, Chakan", map: "https://maps.app.goo.gl/6X4vLpHT5CMiX8sj8?g_st=aw" },
+      { name: "P1 - Mahalunge, Chakan", map: "https://maps.app.goo.gl/" },
+      { name: "P2 - Chakan MIDC Phase 2", map: "https://maps.app.goo.gl/" }
+    ]));
+
+    let employees = JSON.parse(localStorage.getItem('blinkit_employees') || "[]");
+    let activeTab = 'register';
+    let mediaStream = null;
+    let capturedBase64Photo = null;
+
+    window.onload = function() {
+      populateHubDropdown();
+      updateRecordCountBadge();
+    };
+
+    function populateHubDropdown() {
+      const select = document.getElementById('empLocation');
+      select.innerHTML = '';
+      hubsList.forEach(hub => {
+        const opt = document.createElement('option');
+        opt.value = hub.name;
+        opt.textContent = hub.name;
+        select.appendChild(opt);
+      });
+      const customOpt = document.createElement('option');
+      customOpt.value = 'CUSTOM_LOCATION';
+      customOpt.textContent = '+ नया लोकेशन जोड़ें...';
+      select.appendChild(customOpt);
+      toggleCustomLocation();
+    }
+
+    function toggleCustomLocation() {
+      const select = document.getElementById('empLocation');
+      const customInput = document.getElementById('customLocationInput');
+      const mapHint = document.getElementById('locationMapHint');
+      const activeMapLink = document.getElementById('activeMapLink');
+
+      if (select.value === 'CUSTOM_LOCATION') {
+        customInput.classList.remove('hidden');
+        customInput.required = true;
+        mapHint.classList.add('hidden');
+      } else {
+        customInput.classList.add('hidden');
+        customInput.required = false;
+        mapHint.classList.remove('hidden');
+        const found = hubsList.find(h => h.name === select.value);
+        if (found && found.map) {
+          activeMapLink.href = found.map;
+          activeMapLink.textContent = found.name + " (Google Maps)";
         }
+      }
+    }
 
-        function verifyAdmin() {
-            const pin = prompt("Enter Admin PIN:");
-            if (pin === ADMIN_PIN) {
-                alert("Admin Access Granted! Sabhi options active hain.");
-            } else if (pin !== null) {
-                alert("Galat PIN hai!");
-            }
+    function switchTab(tabId) {
+      if (tabId === 'database' || tabId === 'idstudio') {
+        activeTab = tabId;
+        document.getElementById('view-register').classList.add('hidden');
+        document.getElementById('view-database').classList.add('hidden');
+        document.getElementById('view-idstudio').classList.add('hidden');
+        document.getElementById('view-pin-lock').classList.remove('hidden');
+        document.getElementById('adminPinInput').value = '';
+        document.getElementById('adminPinInput').focus();
+        document.getElementById('pinErrorText').classList.add('hidden');
+        return;
+      }
+      setActiveTabDirect(tabId);
+    }
+
+    function setActiveTabDirect(tabId) {
+      activeTab = tabId;
+      document.getElementById('view-register').classList.add('hidden');
+      document.getElementById('view-database').classList.add('hidden');
+      document.getElementById('view-idstudio').classList.add('hidden');
+      document.getElementById('view-pin-lock').classList.add('hidden');
+
+      document.getElementById('tab-register').className = "px-4 py-2 rounded-lg text-sm font-bold transition text-gray-700 hover:bg-gray-200";
+      document.getElementById('tab-database').className = "px-4 py-2 rounded-lg text-sm font-bold transition text-gray-700 hover:bg-gray-200 flex items-center gap-1.5";
+      document.getElementById('tab-idstudio').className = "px-4 py-2 rounded-lg text-sm font-bold transition text-gray-700 hover:bg-gray-200";
+
+      if (tabId === 'register') {
+        document.getElementById('view-register').classList.remove('hidden');
+        document.getElementById('tab-register').className = "px-4 py-2 rounded-lg text-sm font-bold transition bg-[#0C831F] text-white shadow";
+      } else if (tabId === 'database') {
+        document.getElementById('view-database').classList.remove('hidden');
+        document.getElementById('tab-database').className = "px-4 py-2 rounded-lg text-sm font-bold transition bg-[#0C831F] text-white shadow flex items-center gap-1.5";
+        renderDatabase();
+      } else if (tabId === 'idstudio') {
+        document.getElementById('view-idstudio').classList.remove('hidden');
+        document.getElementById('tab-idstudio').className = "px-4 py-2 rounded-lg text-sm font-bold transition bg-[#0C831F] text-white shadow";
+        populateIdCardDropdown();
+      }
+    }
+
+    function verifyAdminPin() {
+      const val = document.getElementById('adminPinInput').value;
+      if (val === ADMIN_PIN) {
+        setActiveTabDirect(activeTab);
+      } else {
+        document.getElementById('pinErrorText').classList.remove('hidden');
+      }
+    }
+
+    function lockAdmin() {
+      stopCamera();
+      switchTab('register');
+    }
+
+    function changeAdminPin() {
+      const old = prompt("वर्तमान Admin PIN दर्ज करें:");
+      if (old === ADMIN_PIN) {
+        const nw = prompt("नया 4 या 6 अंकों का PIN दर्ज करें:");
+        if (nw && nw.length >= 3) {
+          ADMIN_PIN = nw;
+          localStorage.setItem('blinkit_admin_pin', ADMIN_PIN);
+          alert("✅ PIN सफलतापूर्वक बदल दिया गया है!");
+        } else {
+          alert("❌ अमान्य PIN!");
         }
-    </script>
+      } else if (old !== null) {
+        alert("❌ गलत PIN!");
+      }
+    }
 
+    async function startCamera() {
+      const video = document.getElementById('webcamVideo');
+      const preview = document.getElementById('capturedPhotoPreview');
+      const placeholder = document.getElementById('cameraPlaceholder');
+      const btnStart = document.getElementById('btnStartCam');
+      const btnCapture = document.getElementById('btnCapturePhoto');
+      const btnRetake = document.getElementById('btnRetakePhoto');
+      const errBox = document.getElementById('cameraErrorMsg');
+
+      errBox.classList.add('hidden');
+      try {
+        mediaStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' }, audio: false });
+        video.srcObject = mediaStream;
+        video.classList.remove('hidden');
+        preview.classList.add('hidden');
+        placeholder.classList.add('hidden');
+        btnStart.classList.add('hidden');
+        btnCapture.classList.remove('hidden');
+        btnRetake.classList.add('hidden');
+      } catch (err) {
+        errBox.textContent = "कैमरा शुरू करने में असफल: कृपया कैमरा अनुमति दें।";
+        errBox.classList.remove('hidden');
+      }
+    }
+
+    function stopCamera() {
+      if (mediaStream) {
+        mediaStream.getTracks().forEach(t => t.stop());
+        mediaStream = null;
+      }
+    }
+
+    function capturePhoto() {
+      const video = document.getElementById('webcamVideo');
+      const canvas = document.getElementById('photoCanvas');
+      const preview = document.getElementById('capturedPhotoPreview');
+      const btnCapture = document.getElementById('btnCapturePhoto');
+      const btnRetake = document.getElementById('btnRetakePhoto');
+
+      canvas.width = video.videoWidth || 300;
+      canvas.height = video.videoHeight || 300;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      capturedBase64Photo = canvas.toDataURL('image/jpeg', 0.85);
+
+      preview.src = capturedBase64Photo;
+      preview.classList.remove('hidden');
+      video.classList.add('hidden');
+
+      stopCamera();
+      btnCapture.classList.add('hidden');
+      btnRetake.classList.remove('hidden');
+    }
+
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      if (!capturedBase64Photo) {
+        alert("⚠️ कृपया पहले लाइव कैमरा से फोटो खींचें!");
+        return;
+      }
+
+      let locationVal = document.getElementById('empLocation').value;
+      if (locationVal === 'CUSTOM_LOCATION') {
+        const customName = document.getElementById('customLocationInput').value.trim();
+        if (!customName) {
+          alert("कृपया नया लोकेशन नाम दर्ज करें।");
+          return;
+        }
+        locationVal = customName;
+        if (!hubsList.some(h => h.name === locationVal)) {
+          hubsList.push({ name: locationVal, map: "" });
+          localStorage.setItem('blinkit_hubs', JSON.stringify(hubsList));
+          populateHubDropdown();
+        }
+      }
+
+      const seq = String(employees.length + 1).padStart(4, '0');
+      const empId = `BLK-2026-${seq}`;
+
+      const newEmp = {
+        id: empId,
+        name: document.getElementById('empName').value.trim().toUpperCase(),
+        mobile: document.getElementById('empMobile').value.trim(),
+        age: document.getElementById('empAge').value.trim(),
+        role: document.getElementById('empRole').value,
+        location: locationVal,
+        emergencyName: document.getElementById('empEmergencyName').value.trim(),
+        emergencyPhone: document.getElementById('empEmergencyPhone').value.trim(),
+        photo: capturedBase64Photo,
+        issuedDate: new Date().toLocaleDateString('hi-IN')
+      };
+
+      employees.unshift(newEmp);
+      localStorage.setItem('blinkit_employees', JSON.stringify(employees));
+      updateRecordCountBadge();
+
+      document.getElementById('lastGeneratedId').textContent = empId;
+      document.getElementById('submitSuccessBox').classList.remove('hidden');
+      document.getElementById('employeeForm').reset();
+      
+      capturedBase64Photo = null;
+      document.getElementById('capturedPhotoPreview').classList.add('hidden');
+      document.getElementById('cameraPlaceholder').classList.remove('hidden');
+      document.getElementById('btnRetakePhoto').classList.add('hidden');
+      document.getElementById('btnStartCam').classList.remove('hidden');
+
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }
+
+    function updateRecordCountBadge() {
+      document.getElementById('record-count-badge').textContent = employees.length;
+    }
+
+    function renderDatabase() {
+      const tbody = document.getElementById('databaseTableBody');
+      const emptyMsg = document.getElementById('emptyDatabaseMsg');
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      tbody.innerHTML = '';
+
+      const filtered = employees.filter(e => 
+        e.name.toLowerCase().includes(query) || 
+        e.mobile.includes(query) || 
+        e.id.toLowerCase().includes(query)
+      );
+
+      if (filtered.length === 0) {
+        emptyMsg.classList.remove('hidden');
+        return;
+      }
+      emptyMsg.classList.add('hidden');
+
+      filtered.forEach((emp, index) => {
+        const tr = document.createElement('tr');
+        tr.className = "hover:bg-gray-50 transition border-b border-gray-100";
+        tr.innerHTML = `
+          <td class="py-3 px-4">
+            <img src="${emp.photo}" class="w-10 h-10 rounded-xl object-cover border border-gray-200 shadow-sm" />
+          </td>
+          <td class="py-3 px-4 font-mono font-bold text-xs text-gray-900">${emp.id}</td>
+          <td class="py-3 px-4 font-extrabold text-gray-900 uppercase">${emp.name}</td>
+          <td class="py-3 px-4 font-medium text-gray-700">${emp.mobile}</td>
+          <td class="py-3 px-4"><span class="bg-gray-100 px-2 py-1 rounded text-xs font-bold">${emp.age} yrs</span> <span class="text-xs text-gray-500 font-semibold">${emp.role}</span></td>
+          <td class="py-3 px-4 text-xs font-semibold text-gray-700">${emp.location}</td>
+          <td class="py-3 px-4 text-xs font-medium text-red-700">${emp.emergencyName} (${emp.emergencyPhone})</td>
+          <td class="py-3 px-4 text-right space-x-1">
+            <button onclick="openIdStudioFor('${emp.id}')" class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-bold px-2.5 py-1.5 rounded-lg text-xs">🪪 ID कार्ड</button>
+            <button onclick="deleteEmployee('${emp.id}')" class="bg-red-50 hover:bg-red-100 text-red-700 font-bold px-2 py-1.5 rounded-lg text-xs">🗑️</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function deleteEmployee(id) {
+      if (confirm("क्या आप वाकई इस कर्मचारी रिकॉर्ड को डिलीट करना चाहते हैं?")) {
+        employees = employees.filter(e => e.id !== id);
+        localStorage.setItem('blinkit_employees', JSON.stringify(employees));
+        renderDatabase();
+        updateRecordCountBadge();
+      }
+    }
+
+    function exportToCSV() {
+      if (employees.length === 0) {
+        alert("डाउनलोड करने के लिए कोई डेटा नहीं है।");
+        return;
+      }
+      let csv = "ID,Name,Mobile,Age,Role,Location,Emergency Name,Emergency Phone,Issued Date\n";
+      employees.forEach(e => {
+        csv += `"${e.id}","${e.name}","${e.mobile}","${e.age}","${e.role}","${e.location}","${e.emergencyName}","${e.emergencyPhone}","${e.issuedDate}"\n`;
+      });
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `Blinkit_Manpower_Database_${new Date().toISOString().slice(0,10)}.csv`;
+      a.click();
+    }
+
+    function toggleHubManager() {
+      const box = document.getElementById('hubManagerBox');
+      box.classList.toggle('hidden');
+      renderHubList();
+    }
+
+    function renderHubList() {
+      const container = document.getElementById('hubListContainer');
+      container.innerHTML = '';
+      hubsList.forEach((hub, idx) => {
+        const badge = document.createElement('div');
+        badge.className = "bg-gray-100 border border-gray-300 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2";
+        badge.innerHTML = `<span>📍 ${hub.name}</span>`;
+        if (hubsList.length > 1) {
+          const delBtn = document.createElement('button');
+          delBtn.textContent = '✕';
+          delBtn.className = "text-red-600 hover:text-red-800 font-extrabold";
+          delBtn.onclick = () => {
+            hubsList.splice(idx, 1);
+            localStorage.setItem('blinkit_hubs', JSON.stringify(hubsList));
+            populateHubDropdown();
+            renderHubList();
+          };
+          badge.appendChild(delBtn);
+        }
+        container.appendChild(badge);
+      });
+    }
+
+    function addNewHub() {
+      const name = document.getElementById('newHubName').value.trim();
+      const map = document.getElementById('newHubMap').value.trim();
+      if (!name) {
+        alert("कृपया हब का नाम दर्ज करें।");
+        return;
+      }
+      hubsList.push({ name, map });
+      localStorage.setItem('blinkit_hubs', JSON.stringify(hubsList));
+      document.getElementById('newHubName').value = '';
+      document.getElementById('newHubMap').value = '';
+      populateHubDropdown();
+      renderHubList();
+      alert("✅ नया हब सफलतापूर्वक जोड़ दिया गया है!");
+    }
+
+    function openIdStudioFor(id) {
+      activeTab = 'idstudio';
+      document.getElementById('view-database').classList.add('hidden');
+      document.getElementById('view-idstudio').classList.remove('hidden');
+      populateIdCardDropdown();
+      document.getElementById('idCardSelect').value = id;
+      renderSelectedIdCard();
+    }
+
+    function populateIdCardDropdown() {
+      const select = document.getElementById('idCardSelect');
+      select.innerHTML = '';
+      if (employees.length === 0) {
+        const opt = document.createElement('option');
+        opt.textContent = "कोई रिकॉर्ड उपलब्ध नहीं है";
+        select.appendChild(opt);
+        return;
+      }
+      employees.forEach(emp => {
+        const opt = document.createElement('option');
+        opt.value = emp.id;
+        opt.textContent = `${emp.name} (${emp.id})`;
+        select.appendChild(opt);
+      });
+      renderSelectedIdCard();
+    }
+
+    function renderSelectedIdCard() {
+      const selectId = document.getElementById('idCardSelect').value;
+      const emp = employees.find(e => e.id === selectId);
+      const partnerName = document.getElementById('partnerNameInput').value;
+
+      document.getElementById('cardPartnerHeader').textContent = partnerName;
+
+      if (!emp) {
+        document.getElementById('cardName').textContent = "NO EMPLOYEE";
+        document.getElementById('cardIdNumber').textContent = "ID: ---";
+        document.getElementById('cardMobile').textContent = "---";
+        document.getElementById('cardAge').textContent = "---";
+        document.getElementById('cardLocation').textContent = "---";
+        document.getElementById('cardEmergency').textContent = "---";
+        document.getElementById('cardIssuedDate').textContent = "---";
+        return;
+      }
+
+      document.getElementById('cardPhoto').src = emp.photo;
+      document.getElementById('cardRoleBadge').textContent = emp.role;
+      document.getElementById('cardName').textContent = emp.name;
+      document.getElementById('cardIdNumber').textContent = `ID: ${emp.id}`;
+      document.getElementById('cardMobile').textContent = emp.mobile;
+      document.getElementById('cardAge',).textContent = `${emp.age} Years`;
+      document.getElementById('cardLocation').textContent = emp.location;
+      document.getElementById('cardEmergency').textContent = `${emp.emergencyName} (${emp.emergencyPhone})`;
+      document.getElementById('cardIssuedDate').textContent = emp.issuedDate;
+    }
+
+    function downloadIdCardPng() {
+      const cardElement = document.getElementById('printable-id-card');
+      html2canvas(cardElement, { scale: 3, useCORS: true }).then(canvas => {
+        const link = document.createElement('a');
+        link.download = `Blinkit_ID_${document.getElementById('cardIdNumber').textContent.replace('ID: ','')}.png`;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      });
+    }
+  </script>
 </body>
 </html>
